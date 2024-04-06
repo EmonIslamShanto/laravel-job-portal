@@ -18,10 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -29,3 +25,31 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+route:: group (
+    [
+        'middleware' => ['auth', 'verified', 'user.role:company'],
+        'prefix' => 'company',
+        'as' => 'company.'
+    ],
+    function () {
+
+    Route::get('/dashboard', function () {
+        return view('front-end.company-dashboard.dashboard');
+    })->name('dashboard');
+});
+
+route:: group (
+    [
+        'middleware' => ['auth', 'verified', 'user.role:candidate'],
+        'prefix' => 'candidate',
+        'as' => 'candidate.'
+    ],
+    function () {
+
+    Route::get('/dashboard', function () {
+        return view('front-end.candidate-dashboard.dashboard');
+    })->name('dashboard');
+});
+
+
