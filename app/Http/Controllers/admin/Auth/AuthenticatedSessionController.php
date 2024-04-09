@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
@@ -17,7 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('admin.auth.login');
     }
 
     /**
@@ -25,15 +25,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+
+        $request->authenticate('admin');
 
         $request->session()->regenerate();
 
-        if(request()->user()->role === 'company') {
-            return redirect()->intended(RouteServiceProvider::COMPANY_DASHBOARD);
-        }else if(request()->user()->role === 'candidate') {
-            return redirect()->intended(RouteServiceProvider::CANDIDATE_DASHBOARD);
-        }
+        return redirect()->intended(RouteServiceProvider::ADMIN_DASHBOARD);
+
     }
 
     /**
@@ -41,12 +39,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        Auth::guard('admin')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/admin/login');
     }
 }
