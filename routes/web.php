@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\Fronted\CandidateDashboardController;
+use App\Http\Controllers\Fronted\CompanyDashboardController as FrontedCompanyDashboardController;
+use App\Http\Controllers\Fronted\HomeController;
+use App\Http\Controllers\Frontend\CompanyDashboardController;
 use App\Http\Controllers\ProfileController;
+use Faker\Provider\ar_EG\Company;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -26,6 +29,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+// Company Dashboard
 route:: group (
     [
         'middleware' => ['auth', 'verified', 'user.role:company'],
@@ -34,11 +38,10 @@ route:: group (
     ],
     function () {
 
-    Route::get('/dashboard', function () {
-        return view('front-end.company-dashboard.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [FrontedCompanyDashboardController::class, 'index'])->name('dashboard');
 });
 
+// Candidate Dashboard
 route:: group (
     [
         'middleware' => ['auth', 'verified', 'user.role:candidate'],
@@ -47,9 +50,7 @@ route:: group (
     ],
     function () {
 
-    Route::get('/dashboard', function () {
-        return view('front-end.candidate-dashboard.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [CandidateDashboardController::class, 'index'])->name('dashboard');
 });
 
 
