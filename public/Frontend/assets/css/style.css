@@ -9524,7 +9524,6 @@ footer .color-text-paragraph {
   margin-bottom: -65px;
 }
 
-.team_social_link {}
 
 .team_social_link a {
   width: 35px;
@@ -9640,4 +9639,15 @@ footer .color-text-paragraph {
 
 .form-check-label:hover {
   color: #198754;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: var(--bs-nav-pills-link-active-color);
+    background-color: var(--colorPrimary);
+    border-radius: 0px;
+}
+
+.nav-pills .nav-link {
+    border-radius: var(--bs-nav-pills-border-radius);
+    color: var(--colorBlack)
 }

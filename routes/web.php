@@ -4,6 +4,7 @@ use App\Http\Controllers\Fronted\CandidateDashboardController;
 use App\Http\Controllers\Fronted\CompanyDashboardController as FrontedCompanyDashboardController;
 use App\Http\Controllers\Fronted\HomeController;
 use App\Http\Controllers\Frontend\CompanyDashboardController;
+use App\Http\Controllers\Frontend\CompanyProfileController;
 use App\Http\Controllers\ProfileController;
 use Faker\Provider\ar_EG\Company;
 use Illuminate\Support\Facades\Route;
@@ -38,7 +39,11 @@ route:: group (
     ],
     function () {
 
-    Route::get('/dashboard', [FrontedCompanyDashboardController::class, 'index'])->name('dashboard');
+    // Company Dashboard
+    Route::get('/dashboard', [CompanyDashboardController::class, 'index'])->name('dashboard');
+    // Company Profile
+    Route::get('/profile', [CompanyProfileController::class, 'index'])->name('profile');
+
 });
 
 // Candidate Dashboard
