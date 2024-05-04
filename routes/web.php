@@ -43,6 +43,8 @@ route:: group (
     Route::get('/dashboard', [CompanyDashboardController::class, 'index'])->name('dashboard');
     // Company Profile
     Route::get('/profile', [CompanyProfileController::class, 'index'])->name('profile');
+    // Company Profile Update
+    Route::post('/profile/company-info', [CompanyProfileController::class, 'updateCompanyInfo'])->name('profile.company-info');
 
 });
 
