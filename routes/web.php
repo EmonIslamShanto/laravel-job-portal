@@ -45,7 +45,12 @@ route:: group (
     Route::get('/profile', [CompanyProfileController::class, 'index'])->name('profile');
     // Company Profile Update
     Route::post('/profile/company-info', [CompanyProfileController::class, 'updateCompanyInfo'])->name('profile.company-info');
-
+    // Company Foundation Info Update
+    Route::post('/profile/foundation-info', [CompanyProfileController::class, 'updateFoundationInfo'])->name('profile.foundation-info');
+    // Account Info Update
+    Route::post('/profile/account-info', [CompanyProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
+    // Account Password Update
+    Route::post('/profile/update-password', [CompanyProfileController::class, 'updatePassword'])->name('profile.update-password');
 });
 
 // Candidate Dashboard

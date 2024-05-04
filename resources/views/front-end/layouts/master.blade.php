@@ -84,11 +84,17 @@
   <x-notify::notify />
 
   @notifyJs
-  
+
   <script src="{{asset('Frontend/assets/js/main.js?v=4.1')}}"></script>
 
   <script>
-    $('.datepicker').datepicker();
+    $('.datepicker').datepicker(
+        {
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true
+        }
+    );
   </script>
 </body>
 
