@@ -5,18 +5,27 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\IndustryType;
 use App\Services\Notify;
+use App\Traits\Searchable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class IndustryTypeController extends Controller
 {
+    use Searchable;
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $industryTypes = IndustryType::paginate(10);
+
+        $query = IndustryType::query();
+
+        $this->search($query, ['name']);
+
+        $industryTypes = $query->paginate(10);
+
         return view('admin.industry-type.index', compact('industryTypes'));
     }
 
@@ -81,7 +90,7 @@ class IndustryTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): Response
     {
         try {
              IndustryType::findOrFail($id)->delete();
