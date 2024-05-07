@@ -20,10 +20,11 @@ $("#swal-5").click(function() {
 	swal('Good Job', 'You clicked the button!', 'error');
 });
 
-$("#swal-6").click(function() {
+$(".confirmationAlert").on('click',function(e) {
+    e.preventDefault();
   swal({
       title: 'Are you sure?',
-      text: 'Once deleted, you will not be able to recover this imaginary file!',
+      text: 'Once deleted, you will not be able to recover this data!',
       icon: 'warning',
       buttons: true,
       dangerMode: true,
