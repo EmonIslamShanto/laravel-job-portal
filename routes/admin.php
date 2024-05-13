@@ -9,9 +9,12 @@ use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IndustryTypeController;
 use App\Http\Controllers\Admin\OrganizationTypeController;
+use App\Http\Controllers\Admin\StateController;
 use App\Models\OrganizationType;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +49,12 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::resource('industry-type', IndustryTypeController::class);
 
     Route::resource('organization-type', OrganizationTypeController::class);
+
+    Route::resource('countries', CountryController::class);
+
+    Route::resource('states', StateController::class);
+
+    Route::resource('cities', CityController::class);
 
 
 });
