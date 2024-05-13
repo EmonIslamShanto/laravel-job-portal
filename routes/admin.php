@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IndustryTypeController;
+use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\OrganizationTypeController;
 use App\Http\Controllers\Admin\StateController;
 use App\Models\OrganizationType;
@@ -55,6 +56,8 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::resource('states', StateController::class);
 
     Route::resource('cities', CityController::class);
+
+    Route::get('get-states/{country_id}', [LocationController::class, 'getStatesOfCountry'])->name('get-states');
 
 
 });

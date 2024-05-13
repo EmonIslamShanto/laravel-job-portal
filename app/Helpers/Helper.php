@@ -7,3 +7,16 @@ if (!function_exists('hasError')) {
         return $errors->has($name) ? 'is-invalid' : '';
     }
 }
+
+// Set Sidebar Active
+if (!function_exists('setSidebarActive')) {
+    function setSidebarActive(array $routes): ?string
+    {
+        foreach ($routes as $route) {
+            if (Route::is($route)) {
+                return 'active';
+            }
+        }
+        return null;
+    }
+}

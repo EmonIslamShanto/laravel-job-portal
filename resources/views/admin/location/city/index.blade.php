@@ -24,7 +24,7 @@
                                 </form>
                             </div>
                             <a class="btn btn-primary" href="{{ route('admin.cities.create') }}"><i
-                                    class="fas fa-plus-square"></i> Create New State</a>
+                                    class="fas fa-plus-square"></i> Create New City</a>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
