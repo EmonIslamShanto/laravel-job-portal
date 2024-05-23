@@ -1,10 +1,13 @@
 <?php
 
+
 use App\Http\Controllers\Fronted\CandidateDashboardController;
 use App\Http\Controllers\Fronted\CompanyDashboardController as FrontedCompanyDashboardController;
 use App\Http\Controllers\Fronted\HomeController;
+use App\Http\Controllers\Frontend\CandidateProfileController;
 use App\Http\Controllers\Frontend\CompanyDashboardController;
 use App\Http\Controllers\Frontend\CompanyProfileController;
+use App\Http\Controllers\Frontend\LocationController;
 use App\Http\Controllers\ProfileController;
 use Faker\Provider\ar_EG\Company;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +32,12 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// Global Dashboard
+
+Route::get('get-state/{country_id}', [LocationController::class, 'getStates'])->name('get-states');
+Route::get('get-city/{state_id}', [LocationController::class, 'getCities'])->name('get-cities');
+
 
 // Company Dashboard
 route:: group (
@@ -63,6 +72,7 @@ route:: group (
     function () {
 
     Route::get('/dashboard', [CandidateDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [CandidateProfileController::class, 'index'])->name('profile.index');
 });
 
 

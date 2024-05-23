@@ -13,10 +13,12 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IndustryTypeController;
+use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\OrganizationTypeController;
+use App\Http\Controllers\Admin\ProfessionController;
+use App\Http\Controllers\Admin\SkilController;
 use App\Http\Controllers\Admin\StateController;
-use App\Models\OrganizationType;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
@@ -59,5 +61,10 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
 
     Route::get('get-states/{country_id}', [LocationController::class, 'getStatesOfCountry'])->name('get-states');
 
+    Route::resource('languages', LanguageController::class);
+
+    Route::resource('professions', ProfessionController::class);
+
+    Route::resource('skills', SkilController::class);
 
 });

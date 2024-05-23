@@ -107,6 +107,9 @@
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['admin.industry-type.*']) }}"><a class="nav-link" href="{{ route('admin.industry-type.index') }}">Industry Types</a></li>
                     <li class="{{ setSidebarActive([ 'admin.organization-type.*']) }}"><a class="nav-link" href="{{ route('admin.organization-type.index') }}">Organization Types</a></li>
+                    <li class="{{ setSidebarActive([ 'admin.languages.*']) }}"><a class="nav-link" href="{{ route('admin.languages.index') }}">Languages</a></li>
+                    <li class="{{ setSidebarActive([ 'admin.professions.*']) }}"><a class="nav-link" href="{{ route('admin.professions.index') }}">Professions</a></li>
+                    <li class="{{ setSidebarActive([ 'admin.skills.*']) }}"><a class="nav-link" href="{{ route('admin.skills.index') }}">Skills</a></li>
                 </ul>
             </li>
             <li class="dropdown {{ setSidebarActive(['admin.countries.*', 'admin.states.*', 'admin.cities.*']) }}">

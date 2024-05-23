@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\OrganizationType;
+use App\Models\Skill;
 use App\Services\Notify;
 use App\Traits\Searchable;
 use Illuminate\Http\RedirectResponse;
@@ -11,8 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
-
-class OrganizationTypeController extends Controller
+class SkilController extends Controller
 {
     use Searchable;
     /**
@@ -20,13 +19,12 @@ class OrganizationTypeController extends Controller
      */
     public function index(): View
     {
-        $query = OrganizationType::query();
+        $query = Skill::query();
 
         $this->search($query, ['name']);
 
-        $organizationTypes = $query->paginate(10);
-
-        return view('admin.organization-type.index', compact('organizationTypes'));
+        $skills = $query->paginate(10);
+        return view('admin.skill.index', compact('skills'));
     }
 
     /**
@@ -34,27 +32,26 @@ class OrganizationTypeController extends Controller
      */
     public function create(): View
     {
-        return view('admin.organization-type.create');
+        return view('admin.skill.create');
     }
-
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'max:255', 'unique:organization_types,name'],
+            'name' => ['required', 'max:255', 'unique:skills,name'],
         ]);
 
-        $data = new OrganizationType();
+        $data = new Skill();
         $data->name = $request->name;
         $data->save();
 
         Notify::createdNotification();
 
-        return to_route('admin.organization-type.index');
+        return to_route('admin.skills.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -69,26 +66,26 @@ class OrganizationTypeController extends Controller
      */
     public function edit(string $id): View
     {
-        $organizationType = OrganizationType::findOrFail($id);
-        return view('admin.organization-type.edit', compact('organizationType'));
+        $skill = Skill::findOrFail($id);
+        return view('admin.skill.edit', compact('skill'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'max:255', 'unique:organization_types,name,' . $id],
+            'name' => ['required', 'max:255', 'unique:skills,name,' . $id],
         ]);
 
-        $data = OrganizationType::findOrFail($id);
+        $data = Skill::findOrFail($id);
         $data->name = $request->name;
         $data->save();
 
         Notify::updatedNotification();
 
-        return to_route('admin.organization-type.index');
+        return to_route('admin.skills.index');
     }
 
     /**
@@ -97,7 +94,7 @@ class OrganizationTypeController extends Controller
     public function destroy(string $id): Response
     {
         try {
-            OrganizationType::findOrFail($id)->delete();
+            Skill::findOrFail($id)->delete();
 
             Notify::deletedNotification();
             return response(['massage' => 'success'], 200);

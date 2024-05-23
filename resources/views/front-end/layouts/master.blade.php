@@ -87,6 +87,8 @@
 
   <script src="{{asset('Frontend/assets/js/main.js?v=4.1')}}"></script>
 
+  @stack('scripts')
+
   <script>
     $('.datepicker').datepicker(
         {

@@ -22,9 +22,9 @@ class CompanyFoundationInfoUpdate extends FormRequest
             'website' => ['required', 'active-url'],
             'email' => ['required', 'email'],
             'phone' => ['required'],
-            'country' => ['required', 'string' ,'max:150'],
-            'state' => ['string' ,'max:150'],
-            'city' => ['string' ,'max:150'],
+            'country' => ['required','integer'],
+            'state' => ['nullable', 'integer'],
+            'city' => ['nullable', 'integer'],
             'address' => [ 'string', 'max:255'],
             'map_link' => ['nullable'],
         ];

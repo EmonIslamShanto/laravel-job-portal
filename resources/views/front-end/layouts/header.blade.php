@@ -39,7 +39,7 @@
                         @if (Auth::user()->role == 'candidate')
                             <a class="btn btn-default btn-shadow ml-40 hover-up" style="width: 200px"
                                 href="{{ route('candidate.dashboard') }}">Candidate Dashboard</a>
-                        @elseif (Auth::user()->role == 'Company')
+                        @elseif (Auth::user()->role == 'company')
                             <a class="btn btn-default btn-shadow ml-40 hover-up" style="width: 200px"
                                 href="{{ route('company.dashboard') }}">Company Dashboard</a>
                         @endif

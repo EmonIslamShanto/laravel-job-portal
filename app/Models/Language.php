@@ -6,14 +6,11 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrganizationType extends Model
+class Language extends Model
 {
-    use Sluggable;
-    use HasFactory;
+    use HasFactory, Sluggable;
 
-    protected $fillable = [
-        'name'
-    ];
+    protected $fillable = ['name'];
 
     public function sluggable(): array
     {

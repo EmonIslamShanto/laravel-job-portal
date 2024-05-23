@@ -3,38 +3,38 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\OrganizationType;
+use App\Models\Language;
 use App\Services\Notify;
 use App\Traits\Searchable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Redirect;
 
-
-class OrganizationTypeController extends Controller
+class LanguageController extends Controller
 {
     use Searchable;
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index() : View
     {
-        $query = OrganizationType::query();
+        $query = Language::query();
 
         $this->search($query, ['name']);
 
-        $organizationTypes = $query->paginate(10);
-
-        return view('admin.organization-type.index', compact('organizationTypes'));
+        $languages = $query->paginate(10);
+        return view('admin.language.index', compact('languages'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create(): View
     {
-        return view('admin.organization-type.create');
+        return view('admin.language.create');
     }
 
 
@@ -44,16 +44,16 @@ class OrganizationTypeController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'max:255', 'unique:organization_types,name'],
+            'name' => ['required', 'max:255', 'unique:industry_types,name'],
         ]);
 
-        $data = new OrganizationType();
+        $data = new Language();
         $data->name = $request->name;
         $data->save();
 
         Notify::createdNotification();
 
-        return to_route('admin.organization-type.index');
+        return to_route('admin.languages.index');
     }
 
     /**
@@ -69,9 +69,10 @@ class OrganizationTypeController extends Controller
      */
     public function edit(string $id): View
     {
-        $organizationType = OrganizationType::findOrFail($id);
-        return view('admin.organization-type.edit', compact('organizationType'));
+        $language = Language::findOrFail($id);
+        return view('admin.language.edit', compact('language'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -79,16 +80,16 @@ class OrganizationTypeController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => ['required', 'max:255', 'unique:organization_types,name,' . $id],
+            'name' => ['required', 'max:255', 'unique:languages,name,'.$id],
         ]);
 
-        $data = OrganizationType::findOrFail($id);
+        $data = Language::findOrFail($id);
         $data->name = $request->name;
         $data->save();
 
         Notify::updatedNotification();
 
-        return to_route('admin.organization-type.index');
+        return to_route('admin.languages.index');
     }
 
     /**
@@ -97,7 +98,7 @@ class OrganizationTypeController extends Controller
     public function destroy(string $id): Response
     {
         try {
-            OrganizationType::findOrFail($id)->delete();
+            Language::findOrFail($id)->delete();
 
             Notify::deletedNotification();
             return response(['massage' => 'success'], 200);

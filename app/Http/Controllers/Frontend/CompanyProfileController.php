@@ -5,7 +5,13 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CompanyFoundationInfoUpdate;
 use App\Http\Requests\Frontend\CompanyInfoUpdateRequest;
+use App\Models\City;
 use App\Models\Company;
+use App\Models\Country;
+use App\Models\IndustryType;
+use App\Models\OrganizationType;
+use App\Models\State;
+use App\Models\TeamSize;
 use App\Traits\FileUploadTrait;
 use Auth;
 use Illuminate\Validation\Rules;
@@ -19,7 +25,13 @@ class CompanyProfileController extends Controller
     function index(): View
     {
         $company = Company::where('user_id', auth()->id())->first();
-        return view('front-end.company-dashboard.profile.index', compact('company'));
+        $industryTypes = IndustryType::all();
+        $organizationTypes = OrganizationType::all();
+        $teamSizes = TeamSize::all();
+        $countries = Country::all();
+        $states = State::select(['id', 'name', 'country_id'])->where('country_id', $company->country)->get();
+        $cities = City::select(['id', 'name', 'state_id', 'country_id'])->where('state_id', $company->state)->get();
+        return view('front-end.company-dashboard.profile.index', compact('company', 'industryTypes', 'organizationTypes', 'teamSizes', 'countries', 'states', 'cities'));
     }
 
     function updateCompanyInfo(CompanyInfoUpdateRequest $request): RedirectResponse
@@ -39,6 +51,13 @@ class CompanyProfileController extends Controller
             $data
         );
 
+        if(checkComponyProfileCompletion()){
+            $company = Company::where('user_id', auth()->user()->id)->first();
+            $company->profile_completion = 1;
+            $company->visibility = 1;
+            $company->save();
+        }
+
         notify()->success('Updated Successfully', 'Success!!');
         return redirect()->back();
     }
@@ -46,6 +65,7 @@ class CompanyProfileController extends Controller
     function updateFoundationInfo(CompanyFoundationInfoUpdate $request): RedirectResponse
     {
         Company::updateOrCreate(
+            
             ['user_id' => auth()->id()],
             [
                 'industry_type_id' => $request->industry_type,
@@ -63,6 +83,13 @@ class CompanyProfileController extends Controller
             ]
 
         );
+
+        if(checkComponyProfileCompletion()){
+            $company = Company::where('user_id', auth()->user()->id)->first();
+            $company->profile_completion = 1;
+            $company->visibility = 1;
+            $company->save();
+        }
 
         notify()->success('Updated Successfully', 'Success!!');
         return redirect()->back();

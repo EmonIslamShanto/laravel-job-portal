@@ -3,7 +3,7 @@
 @section('contents')
     <section class="section">
         <div class="section-header">
-            <h1>Industry Type</h1>
+            <h1>Language</h1>
         </div>
 
         <div class="section-body">
@@ -11,9 +11,9 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Industry Types</h4>
+                            <h4>All Languages</h4>
                             <div class="card-header-form">
-                                <form action="{{ route('admin.industry-type.index') }}" method="GET">
+                                <form action="{{ route('admin.languages.index') }}" method="GET">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search" name="search" value="{{ request('search') }}">
                                         <div class="input-group-btn">
@@ -23,8 +23,8 @@
                                     </div>
                                 </form>
                             </div>
-                            <a class="btn btn-primary" href="{{ route('admin.industry-type.create') }}"><i
-                                    class="fas fa-plus-square"></i> Create New Industry Type</a>
+                            <a class="btn btn-primary" href="{{ route('admin.languages.create') }}"><i
+                                    class="fas fa-plus-square"></i> Create New Language</a>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
@@ -32,16 +32,16 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Slug</th>
-                                        <th style="width: 15%">Action</th>
+                                        <th style="width: 20%">Action</th>
                                     </tr>
-                                    @forelse ($industryTypes as $type)
+                                    @forelse ($languages as $language)
                                         <tr>
-                                            <td>{{ $type->name }}</td>
-                                            <td>{{ $type->slug }}</td>
+                                            <td>{{ $language->name }}</td>
+                                            <td>{{ $language->slug }}</td>
                                             <td>
-                                                <a href="{{ route('admin.industry-type.edit', $type->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i>
+                                                <a href="{{ route('admin.languages.edit', $language->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i>
                                                     Edit</a>
-                                                <a href="{{ route('admin.industry-type.destroy', $type->id) }}" class="btn btn-danger delete-item"><i class="fas fa-trash-alt"></i>
+                                                <a href="{{ route('admin.languages.destroy', $language->id) }}" class="btn btn-danger delete-item"><i class="fas fa-trash-alt"></i>
                                                     Delete</a>
                                             </td>
                                         </tr>
@@ -55,8 +55,8 @@
                         </div>
                         <div class="card-footer text-right">
                             <nav class="d-inline-block">
-                                @if ($industryTypes->hasPages())
-                                    {{ $industryTypes->withQueryString()->links() }}
+                                @if ($languages->hasPages())
+                                    {{ $languages->withQueryString()->links() }}
                                 @endif
                             </nav>
                         </div>

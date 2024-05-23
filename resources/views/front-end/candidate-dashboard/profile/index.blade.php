@@ -21,14 +21,17 @@
     <section class="section-box mt-120">
         <div class="container">
         <div class="row">
-            @include('front-end.company-dashboard.sidebar')
+            @include('front-end.candidate-dashboard.sidebar')
             <div class="col-lg-9 col-md-8 col-sm-12 col-12 mb-50">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Company Info</button>
+                  <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Basic</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Company History</button>
+                  <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Education & Experience</button>
                 </li>
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Account Settings</button>
@@ -37,54 +40,9 @@
 
 
               <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
-                    <form action="{{ route('company.profile.company-info') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-6">
-                                <x-image-preview height="200" width="200" source="{{ $company?->logo }}" />
-                                <div class="form-group">
-                                <label class="font-sm color-text-mutted mb-10">Comapny Logo *</label>
-                                <input class="form-control {{ $errors->has('logo') ? 'is-invalid' : '' }}" type="file" name="logo" value="">
-                                <x-input-error :messages="$errors->get('logo')" class="mt-2" />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <x-image-preview height="200" width="400" source="{{ $company?->banner }}" />
-                                <div class="form-group">
-                                <label class="font-sm color-text-mutted mb-10">Comapny Banner *</label>
-                                <input class="form-control {{ $errors->has('banner') ? 'is-invalid' : '' }}" type="file" name="banner" value="">
-                                <x-input-error :messages="$errors->get('banner')" class="mt-2" />
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                <label class="font-sm color-text-mutted mb-10">Comapny Name *</label>
-                                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" value="{{ $company?->name }}">
-                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                <label class="font-sm color-text-mutted mb-10">Comapny Bio *</label>
-                                <textarea class=" {{ $errors->has('bio') ? 'is-invalid' : '' }}" id="" name="bio">{{ $company?->bio }}</textarea>
-                                <x-input-error :messages="$errors->get('bio')" class="mt-2" />
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                <label class="font-sm color-text-mutted mb-10">Comapny Vision *</label>
-                                <textarea class=" {{ $errors->has('vision') ? 'is-invalid' : '' }}" id="" name="vision">{{ $company?->vision }}</textarea>
-                                <x-input-error :messages="$errors->get('vision')" class="mt-2" />
-                                </div>
-                            </div>
-                            <div class="box-button mt-15">
-                                <button class="btn btn-apply-big font-md font-bold">Save All Changes</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+                @include('front-end.candidate-dashboard.profile.section.basic-section')
+
+                {{-- <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
                     <form action="{{ route('company.profile.foundation-info') }}" method="POST">
                         @csrf
                         <div class="row">
@@ -208,8 +166,8 @@
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+                </div> --}}
+                {{-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
                     <form action="{{ route('company.profile.account-info') }}" method="POST">
                         @csrf
                         <div class="row">
@@ -255,7 +213,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> --}}
                 <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">...</div>
               </div>
             </div>
