@@ -43,7 +43,7 @@
                                 name="experience_level" id="">
                                 <option value="">Select Experience Level</option>
                                 @foreach ($experienceLevels as $experienceLevel)
-                                    <option @selected($experienceLevel->id == $candidate->experience_id) value="{{ $experienceLevel->id }}">{{ $experienceLevel->name }}</option>
+                                    <option @selected($experienceLevel->id == $candidate?->experience_id) value="{{ $experienceLevel->id }}">{{ $experienceLevel->name }}</option>
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('experience_level')" class="mt-2" />

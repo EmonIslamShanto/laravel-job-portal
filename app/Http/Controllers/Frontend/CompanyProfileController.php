@@ -12,6 +12,7 @@ use App\Models\IndustryType;
 use App\Models\OrganizationType;
 use App\Models\State;
 use App\Models\TeamSize;
+use App\Services\Notify;
 use App\Traits\FileUploadTrait;
 use Auth;
 use Illuminate\Validation\Rules;
@@ -58,14 +59,14 @@ class CompanyProfileController extends Controller
             $company->save();
         }
 
-        notify()->success('Updated Successfully', 'Success!!');
+        Notify::updatedNotification();
         return redirect()->back();
     }
 
     function updateFoundationInfo(CompanyFoundationInfoUpdate $request): RedirectResponse
     {
         Company::updateOrCreate(
-            
+
             ['user_id' => auth()->id()],
             [
                 'industry_type_id' => $request->industry_type,
@@ -91,7 +92,7 @@ class CompanyProfileController extends Controller
             $company->save();
         }
 
-        notify()->success('Updated Successfully', 'Success!!');
+        Notify::updatedNotification();
         return redirect()->back();
     }
 
@@ -104,7 +105,7 @@ class CompanyProfileController extends Controller
 
         Auth::user()->update($DataValidate);
 
-        notify()->success('Updated Successfully', 'Success!!');
+        Notify::updatedNotification();
         return redirect()->back();
     }
 
@@ -118,7 +119,7 @@ class CompanyProfileController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        notify()->success('Updated Successfully', 'Success!!');
+        Notify::updatedNotification();
         return redirect()->back();
     }
 }

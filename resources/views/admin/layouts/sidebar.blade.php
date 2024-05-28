@@ -101,7 +101,7 @@
                 <a href="{{ route('admin.dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
             <li class="menu-header">Starter</li>
-            <li class="dropdown {{ setSidebarActive(['admin.industry-type.*', 'admin.organization-type.*']) }}">
+            <li class="dropdown {{ setSidebarActive(['admin.industry-type.*', 'admin.organization-type.*', 'admin.languages.*', 'admin.professions.*', 'admin.skills.']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Attributes</span></a>
                 <ul class="dropdown-menu">

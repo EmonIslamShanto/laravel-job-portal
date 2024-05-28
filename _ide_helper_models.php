@@ -53,7 +53,7 @@ namespace App\Models{
  * @property int|null $experience_id
  * @property int|null $profession_id
  * @property string|null $title
- * @property string|null $Full_name
+ * @property string|null $full_name
  * @property string|null $image
  * @property string|null $slug
  * @property string|null $email
@@ -74,7 +74,10 @@ namespace App\Models{
  * @property int $visibility
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int|null $experience_level
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CandidateLanguage> $languages
+ * @property-read int|null $languages_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CandidateSkill> $skills
+ * @property-read int|null $skills_count
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate query()
@@ -87,7 +90,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate whereCv($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate whereExperienceId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Candidate whereExperienceLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate whereFullName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate whereGender($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate whereId($value)
@@ -107,6 +109,81 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate whereWebsite($value)
  */
 	class Candidate extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $candidate_id
+ * @property string $company
+ * @property string $department
+ * @property string $designation
+ * @property string $start_date
+ * @property string $end_date
+ * @property string|null $responsibilities
+ * @property int $currently_working
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience whereCandidateId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience whereCompany($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience whereCurrentlyWorking($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience whereDepartment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience whereDesignation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience whereEndDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience whereResponsibilities($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateExperience whereUpdatedAt($value)
+ */
+	class CandidateExperience extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $candidate_id
+ * @property int $language_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateLanguage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateLanguage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateLanguage query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateLanguage whereCandidateId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateLanguage whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateLanguage whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateLanguage whereLanguageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateLanguage whereUpdatedAt($value)
+ */
+	class CandidateLanguage extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $candidate_id
+ * @property int $skill_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateSkill newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateSkill newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateSkill query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateSkill whereCandidateId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateSkill whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateSkill whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateSkill whereSkillId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CandidateSkill whereUpdatedAt($value)
+ */
+	class CandidateSkill extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -218,6 +295,25 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereUpdatedAt($value)
  */
 	class Country extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Experience newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Experience newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Experience query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Experience whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Experience whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Experience whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Experience whereUpdatedAt($value)
+ */
+	class Experience extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -392,6 +488,7 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Candidate|null $candidateProfile
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens

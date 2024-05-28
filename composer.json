@@ -5,13 +5,13 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": ">= 8.2.0",
         "cviebrock/eloquent-sluggable": "^10.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "mckenziearts/laravel-notify": "^2.4"
+        "php-flasher/flasher-notyf-laravel": "^1.15"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.0",
