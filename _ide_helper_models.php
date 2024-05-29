@@ -78,6 +78,7 @@ namespace App\Models{
  * @property-read int|null $languages_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CandidateSkill> $skills
  * @property-read int|null $skills_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Candidate findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate query()
@@ -107,6 +108,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate whereVisibility($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Candidate whereWebsite($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Candidate withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  */
 	class Candidate extends \Eloquent {}
 }

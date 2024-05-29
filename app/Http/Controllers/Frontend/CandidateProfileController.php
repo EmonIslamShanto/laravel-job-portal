@@ -20,7 +20,9 @@ use App\Models\Skill;
 use App\Models\State;
 use App\Services\Notify;
 use App\Traits\FileUploadTrait;
+use Auth;
 use GuzzleHttp\Promise\Create;
+use Illuminate\Validation\Rules;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -32,13 +34,13 @@ class CandidateProfileController extends Controller
         $experienceLevels = Experience::all();
         $professions = Profession::all();
         $candidate = Candidate::with(['skills'])->where('user_id', auth()->user()->id)->first();
-        $candidateExperiences = CandidateExperience::where('candidate_id', $candidate->id)->orderBy('id', 'DESC')->get();
-        $candidateEducations = CandidateEducation::where('candidate_id', $candidate->id)->orderBy('id', 'DESC')->get();
+        $candidateExperiences = CandidateExperience::where('candidate_id', $candidate?->id)->orderBy('id', 'DESC')->get();
+        $candidateEducations = CandidateEducation::where('candidate_id', $candidate?->id)->orderBy('id', 'DESC')->get();
         $skills = Skill::all();
         $languages = Language::all();
         $countries = Country::all();
-        $states = State::where('country_id', $candidate->country)->get();
-        $cities = City::where('state_id', $candidate->state)->get();
+        $states = State::where('country_id', $candidate?->country)->get();
+        $cities = City::where('state_id', $candidate?->state)->get();
         return view('front-end.candidate-dashboard.profile.index', compact('candidate', 'experienceLevels', 'professions', 'skills', 'languages', 'candidateExperiences', 'candidateEducations', 'countries', 'states', 'cities'));
     }
 
@@ -61,6 +63,8 @@ class CandidateProfileController extends Controller
             ['user_id' => auth()->user()->id],
             $data
         );
+
+        $this->updateProfileStatus();
 
         Notify::updatedNotification();
 
@@ -99,6 +103,8 @@ class CandidateProfileController extends Controller
             $candidateSk->save();
         }
 
+        $this->updateProfileStatus();
+
         Notify::updatedNotification();
 
         return redirect()->back();
@@ -119,8 +125,51 @@ class CandidateProfileController extends Controller
             ]
         );
 
+        $this->updateProfileStatus();
+
         Notify::updatedNotification();
 
         return redirect()->back();
+    }
+
+
+    //Account Email Update
+    function accountEmailUpdate(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'account_email' => ['required', 'email'],
+        ]);
+
+        Auth::user()->update(['email' => $request->account_email]);
+
+        Notify::updatedNotification();
+
+        return redirect()->back();
+    }
+
+    //Account Password Update
+    function accountPasswordUpdate(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        Auth::user()->update([
+            'password' => bcrypt($request->password)
+        ]);
+
+        Notify::passwordChangeNotification();
+        return redirect()->back();
+    }
+
+    //Profile Update Checking
+
+    function updateProfileStatus(): void{
+        if(checkCandidateProfileCompletion()){
+            $candidate = Candidate::where('user_id', auth()->user()->id)->first();
+            $candidate->profile_completed = 1;
+            $candidate->visibility = 1;
+            $candidate->save();
+        }
     }
 }

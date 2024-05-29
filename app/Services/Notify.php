@@ -15,6 +15,11 @@ class Notify
         return notyf()->addSuccess('Data updated successfully', 'Success!');
     }
 
+    static function passwordChangeNotification()
+    {
+        return notyf()->addSuccess('Password changed successfully', 'Success!');
+    }
+
     // NOtification of Delete
     static function deletedNotification()
     {

@@ -78,6 +78,8 @@ route:: group (
     Route::post('/profile/basic-info', [CandidateProfileController::class, 'basicInfoUpdate'])->name('profile.basic-info.update');
     Route::post('/profile/profile-info', [CandidateProfileController::class, 'profileInfoUpdate'])->name('profile.profile-info.update');
     Route::post('/profile/account-info', [CandidateProfileController::class, 'accountInfoUpdate'])->name('profile.account-info.update');
+    Route::post('/profile/account-email', [CandidateProfileController::class, 'accountEmailUpdate'])->name('profile.account-email.update');
+    Route::post('/profile/account-password', [CandidateProfileController::class, 'accountPasswordUpdate'])->name('profile.account-password.update');
     Route::resource('experience', CandidateExperienceController::class);
     Route::resource('education', CandidateEducationController::class);
 });

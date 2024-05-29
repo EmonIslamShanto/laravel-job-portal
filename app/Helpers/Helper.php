@@ -2,6 +2,7 @@
 
 // Input error checking
 
+use App\Models\Candidate;
 use App\Models\Company;
 use PhpParser\Node\Expr\Cast\Bool_;
 
@@ -24,7 +25,9 @@ if (!function_exists('setSidebarActive')) {
         return null;
     }
 }
-// check profile completion
+
+
+// check company profile completion
 if (!function_exists('checkComponyProfileCompletion')) {
     function checkComponyProfileCompletion(): bool
     {
@@ -32,6 +35,21 @@ if (!function_exists('checkComponyProfileCompletion')) {
         $company = Company::where('user_id', auth()->user()->id)->first();
         foreach ($requireFields as $field) {
             if (empty($company->$field)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+}
+// check candidate profile completion
+if (!function_exists('checkCandidateProfileCompletion')) {
+    function checkCandidateProfileCompletion(): bool
+    {
+        $requireFields = ['image', 'email', 'full_name', 'experience_id','profession_id', 'birth_date', 'country', 'phone_one', 'bio', 'gender', 'marital_status', 'status'];
+        $candidate = Candidate::where('user_id', auth()->user()->id)->first();
+        foreach ($requireFields as $field) {
+            if (empty($candidate->$field)) {
                 return false;
             }
         }
