@@ -40,8 +40,8 @@
                                 aria-controls="pills-experience" aria-selected="false"> Education & Experience </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
-                                data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
+                            <button class="nav-link" id="pills-account-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-account" type="button" role="tab" aria-controls="pills-contact"
                                 aria-selected="false"> Account Settings </button>
                         </li>
                     </ul>
@@ -51,6 +51,7 @@
                         @include('front-end.candidate-dashboard.profile.section.basic-section')
                         @include('front-end.candidate-dashboard.profile.section.profile-section')
                         @include('front-end.candidate-dashboard.profile.section.experience-section')
+                        @include('front-end.candidate-dashboard.profile.section.account-section')
                         {{-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
                     <form action="{{ route('company.profile.account-info') }}" method="POST">
                         @csrf
@@ -106,13 +107,13 @@
         </div>
     </section>
 
-    <!-- Modal -->
+    <!-- Experience Modal -->
     <div class="modal fade" id="experienceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Experience</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Experience</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -174,11 +175,64 @@
             </div>
         </div>
     </div>
+    <!-- Education Modal -->
+    <div class="modal fade" id="educationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Education</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="educationForm">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Institute Name *</label>
+                                    <input name="institute" type="text" class="form-control" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Level *</label>
+                                    <input name="level" type="text" class="form-control" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Degree *</label>
+                                    <input name="degree" type="text" class="form-control" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Year *</label>
+                                    <input name="year" type="text" class="form-control yearPicker" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">Note</label>
+                                    <textarea name="note" maxlength="500" class="form-control" id=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Education</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
+
             var editId = "";
             var editMode = false;
 
@@ -329,6 +383,153 @@
                     }
                 });
             });
-        });
+
+
+
+
+            //fetch education
+            function fetchEducation() {
+                $.ajax({
+                    url: "{{ route('candidate.education.index') }}",
+                    type: 'GET',
+                    data: {},
+
+                    success: function(response) {
+                        $('.education-tbody').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        notyf.error(xhr.responseJSON.message);
+                    }
+                });
+            }
+
+            //add education
+            $('#educationForm').on('submit', function(e) {
+                e.preventDefault();
+                let form = $(this);
+                let data = form.serialize();
+
+                if (editMode) {
+                    $.ajax({
+                        url: "{{ route('candidate.education.update', ':id') }}".replace(':id',
+                            editId),
+                        type: 'PUT',
+                        data: data,
+                        beforeSend: function() {
+                            showLoader();
+                        },
+                        success: function(response) {
+                            fetchEducation();
+                            $('#educationForm').trigger('reset');
+                            $('#educationModal').modal('hide');
+                            editMode = false;
+                            editId = "";
+                            hideLoader();
+                            notyf.success(response.message);
+                        },
+                        error: function(xhr, status, error) {
+                            hideLoader();
+                            notyf.error(xhr.responseJSON.message);
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: "{{ route('candidate.education.store') }}",
+                        type: 'POST',
+                        data: data,
+                        beforeSend: function() {
+                            showLoader();
+                        },
+                        success: function(response) {
+                            fetchEducation();
+                            $('#educationForm').trigger('reset');
+                            $('#educationModal').modal('hide');
+                            hideLoader();
+                            notyf.success(response.message);
+                        },
+                        error: function(xhr, status, error) {
+                            hideLoader();
+                            notyf.error(xhr.responseJSON.message);
+                        }
+                    });
+                }
+
+            });
+
+            //edit education
+            $('body').on('click','.edit-education', function() {
+                $('#educationForm').trigger('reset');
+                let url = $(this).attr('href');
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: {},
+                    beforeSend: function() {
+                        showLoader();
+                    },
+                    success: function(response) {
+                        editMode = true;
+                        editId = response.id;
+                        $.each(response, function(index, value) {
+                            $(`input[name="${index}"]`).val(value);
+                            if (index === 'note') {
+                                $(`textarea[name="${index}"]`).val(value);
+                            }
+                        });
+                        hideLoader();
+
+                    },
+                    error: function(xhr, status, error) {
+                        notyf.error(xhr.responseJSON.message);
+                        hideLoader();
+                    }
+                });
+            });
+
+            //delete education
+            $('body').on('click', '.delete-education', function(e) {
+                e.preventDefault();
+                let url = $(this).attr('href');
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                            method: 'DELETE',
+                            url: url,
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            beforeSend: function() {
+                                showLoader();
+                            },
+                            success: function(response) {
+                                fetchEducation();
+                                hideLoader();
+                                notyf.success(response.massage);
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(error);
+                                swal(xhr.responseJSON.massage, {
+                                    icon: 'error',
+                                })
+                                hideLoader();
+                            }
+                        });
+                    } else {
+                        swal('Your data is safe!');
+                    }
+                });
+            });
+
+
     </script>
 @endpush

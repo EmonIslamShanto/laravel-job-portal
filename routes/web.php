@@ -4,6 +4,7 @@
 use App\Http\Controllers\Fronted\CandidateDashboardController;
 use App\Http\Controllers\Fronted\CompanyDashboardController as FrontedCompanyDashboardController;
 use App\Http\Controllers\Fronted\HomeController;
+use App\Http\Controllers\Frontend\CandidateEducationController;
 use App\Http\Controllers\Frontend\CandidateExperienceController;
 use App\Http\Controllers\Frontend\CandidateProfileController;
 use App\Http\Controllers\Frontend\CompanyDashboardController;
@@ -76,7 +77,9 @@ route:: group (
     Route::get('/profile', [CandidateProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile/basic-info', [CandidateProfileController::class, 'basicInfoUpdate'])->name('profile.basic-info.update');
     Route::post('/profile/profile-info', [CandidateProfileController::class, 'profileInfoUpdate'])->name('profile.profile-info.update');
+    Route::post('/profile/account-info', [CandidateProfileController::class, 'accountInfoUpdate'])->name('profile.account-info.update');
     Route::resource('experience', CandidateExperienceController::class);
+    Route::resource('education', CandidateEducationController::class);
 });
 
 

@@ -25,6 +25,12 @@ class Candidate extends Model
         'profession_id',
         'status',
         'bio',
+        'country',
+        'state',
+        'city',
+        'address',
+        'phone_one',
+        'phone_two',
 
     ];
 

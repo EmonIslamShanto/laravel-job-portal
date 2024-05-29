@@ -3,16 +3,21 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\CandidateAccountInfoUpdateRequest;
 use App\Http\Requests\Frontend\CandidateProfileBasicUpdateRequest;
 use App\Http\Requests\Frontend\CandidateProfileInfoUpdateRequest;
 use App\Models\Candidate;
+use App\Models\CandidateEducation;
 use App\Models\CandidateExperience;
 use App\Models\CandidateLanguage;
 use App\Models\CandidateSkill;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Experience;
 use App\Models\Language;
 use App\Models\Profession;
 use App\Models\Skill;
+use App\Models\State;
 use App\Services\Notify;
 use App\Traits\FileUploadTrait;
 use GuzzleHttp\Promise\Create;
@@ -28,9 +33,13 @@ class CandidateProfileController extends Controller
         $professions = Profession::all();
         $candidate = Candidate::with(['skills'])->where('user_id', auth()->user()->id)->first();
         $candidateExperiences = CandidateExperience::where('candidate_id', $candidate->id)->orderBy('id', 'DESC')->get();
+        $candidateEducations = CandidateEducation::where('candidate_id', $candidate->id)->orderBy('id', 'DESC')->get();
         $skills = Skill::all();
         $languages = Language::all();
-        return view('front-end.candidate-dashboard.profile.index', compact('candidate', 'experienceLevels', 'professions', 'skills', 'languages', 'candidateExperiences'));
+        $countries = Country::all();
+        $states = State::where('country_id', $candidate->country)->get();
+        $cities = City::where('state_id', $candidate->state)->get();
+        return view('front-end.candidate-dashboard.profile.index', compact('candidate', 'experienceLevels', 'professions', 'skills', 'languages', 'candidateExperiences', 'candidateEducations', 'countries', 'states', 'cities'));
     }
 
     function basicInfoUpdate(CandidateProfileBasicUpdateRequest $request): RedirectResponse{
@@ -90,9 +99,25 @@ class CandidateProfileController extends Controller
             $candidateSk->save();
         }
 
+        Notify::updatedNotification();
 
+        return redirect()->back();
+    }
 
+    function accountInfoUpdate(CandidateAccountInfoUpdateRequest $request): RedirectResponse
+    {
+        Candidate::updateOrCreate(
+            ['user_id' => auth()->user()->id],
+            [
+                'country' => $request->country,
+                'state' => $request->state,
+                'city' => $request->city,
+                'address' => $request->address,
+                'phone_one' => $request->phone,
+                'phone_two' => $request->secondary_phone,
 
+            ]
+        );
 
         Notify::updatedNotification();
 

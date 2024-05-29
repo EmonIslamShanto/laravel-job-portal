@@ -103,6 +103,13 @@
             autoclose: true,
             todayHighlight: true
         });
+        $('.yearPicker').datepicker({
+            format: 'yyyy',
+            viewMode: 'years',
+            minViewMode: 'years',
+            autoclose: true,
+            todayHighlight: true
+        });
 
         ClassicEditor
             .create(document.querySelector('#editor'))
