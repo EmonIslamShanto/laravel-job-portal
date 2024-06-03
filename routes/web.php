@@ -6,8 +6,10 @@ use App\Http\Controllers\Fronted\CompanyDashboardController as FrontedCompanyDas
 use App\Http\Controllers\Fronted\HomeController;
 use App\Http\Controllers\Frontend\CandidateEducationController;
 use App\Http\Controllers\Frontend\CandidateExperienceController;
+use App\Http\Controllers\Frontend\CandidateListPageController;
 use App\Http\Controllers\Frontend\CandidateProfileController;
 use App\Http\Controllers\Frontend\CompanyDashboardController;
+use App\Http\Controllers\Frontend\CompanyListPageController;
 use App\Http\Controllers\Frontend\CompanyProfileController;
 use App\Http\Controllers\Frontend\LocationController;
 use App\Http\Controllers\ProfileController;
@@ -39,6 +41,10 @@ require __DIR__.'/auth.php';
 
 Route::get('get-state/{country_id}', [LocationController::class, 'getStates'])->name('get-states');
 Route::get('get-city/{state_id}', [LocationController::class, 'getCities'])->name('get-cities');
+Route::get('companies', [CompanyListPageController::class, 'index'])->name('companies.index');
+Route::get('companies/{slug}', [CompanyListPageController::class, 'show'])->name('companies.show');
+Route::get('candidates', [CandidateListPageController::class, 'index'])->name('candidates.index');
+Route::get('candidates/{slug}', [CandidateListPageController::class, 'show'])->name('candidates.show');
 
 
 // Company Dashboard

@@ -10,8 +10,8 @@
                     <ul class="main-menu">
                         <li class="has-children"><a class="active" href="index.html">Home</a></li>
                         <li class="has-children"><a href="jobs-list.html">Find a Job</a></li>
-                        <li class="has-children"><a href="companies-grid.html">Recruiters</a></li>
-                        <li class="has-children"><a href="candidates-grid.html">Candidates</a></li>
+                        <li class="has-children"><a href="{{ route('companies.index') }}">Recruiters</a></li>
+                        <li class="has-children"><a href="{{ route('candidates.index') }}">Candidates</a></li>
                         <li class="has-children"><a href="blog-grid.html">Pages</a>
                             <ul class="sub-menu">
                                 <li><a href="page-about.html">About Us</a></li>

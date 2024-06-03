@@ -42,6 +42,7 @@ if (!function_exists('checkComponyProfileCompletion')) {
     }
 
 }
+
 // check candidate profile completion
 if (!function_exists('checkCandidateProfileCompletion')) {
     function checkCandidateProfileCompletion(): bool
@@ -54,6 +55,19 @@ if (!function_exists('checkCandidateProfileCompletion')) {
             }
         }
         return true;
+    }
+
+}
+// formate date
+if (!function_exists('formatDate')) {
+    function formatDate(?string $date): ?string
+    {
+        if($date)
+        {
+            return date('d M, Y', strtotime($date));
+        }
+
+        return null;
     }
 
 }

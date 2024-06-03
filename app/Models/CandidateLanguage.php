@@ -13,4 +13,8 @@ class CandidateLanguage extends Model
         'candidate_id',
         'language_id',
     ];
+
+    function language(){
+        return $this->belongsTo(Language::class, 'language_id', 'id');
+    }
 }
