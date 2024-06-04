@@ -9749,3 +9749,15 @@ ul.timeline > li:before {
     height: 20px;
     z-index: 400;
 }
+
+.price-title{
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  margin-bottom: 10px;
+  color: #6777ef;
+  border-radius: 0 0 3px 3px;
+  display: inline-block;
+  padding: 5px 15px;
+}

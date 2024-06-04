@@ -8,7 +8,7 @@
                     <div class="col-lg-12">
                         <h2 class="mb-20">Candidates List</h2>
                         <ul class="breadcrumbs">
-                            <li><a class="home-icon" href="index.html">Home</a></li>
+                            <li><a class="home-icon" href="i{{ url('/') }}">Home</a></li>
                             <li>Candidates List</li>
                         </ul>
                     </div>

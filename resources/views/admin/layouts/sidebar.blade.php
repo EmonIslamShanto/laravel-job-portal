@@ -121,6 +121,8 @@
                     <li class="{{ setSidebarActive(['admin.cities.*']) }}"><a class="nav-link" href="{{ route('admin.cities.index') }}">Cities</a></li>
                 </ul>
             </li>
+            <li class="{{ setSidebarActive(['admin.plans.*']) }}"><a href="{{ route('admin.plans.index') }}" class="nav-link"><i class="far fa-square"></i><span>Price Plan</span></a></li>
+            <li class="{{ setSidebarActive(['admin.plans.*']) }}"><a href="{{ route('admin.plans.index') }}" class="nav-link"><i class="far fa-square"></i><span>Payment Settings</span></a></li>
         </ul>
 
     </aside>

@@ -8,10 +8,12 @@ use App\Http\Controllers\Frontend\CandidateEducationController;
 use App\Http\Controllers\Frontend\CandidateExperienceController;
 use App\Http\Controllers\Frontend\CandidateListPageController;
 use App\Http\Controllers\Frontend\CandidateProfileController;
+use App\Http\Controllers\Frontend\CheckoutPageController;
 use App\Http\Controllers\Frontend\CompanyDashboardController;
 use App\Http\Controllers\Frontend\CompanyListPageController;
 use App\Http\Controllers\Frontend\CompanyProfileController;
 use App\Http\Controllers\Frontend\LocationController;
+use App\Http\Controllers\Frontend\PricingPageController;
 use App\Http\Controllers\ProfileController;
 use Faker\Provider\ar_EG\Company;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +47,8 @@ Route::get('companies', [CompanyListPageController::class, 'index'])->name('comp
 Route::get('companies/{slug}', [CompanyListPageController::class, 'show'])->name('companies.show');
 Route::get('candidates', [CandidateListPageController::class, 'index'])->name('candidates.index');
 Route::get('candidates/{slug}', [CandidateListPageController::class, 'show'])->name('candidates.show');
+Route::get('pricing', PricingPageController::class)->name('pricing.index');
+Route::get('checkout/{plan_id}', CheckoutPageController::class)->name('checkout.index');
 
 
 // Company Dashboard
