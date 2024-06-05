@@ -122,7 +122,8 @@
                 </ul>
             </li>
             <li class="{{ setSidebarActive(['admin.plans.*']) }}"><a href="{{ route('admin.plans.index') }}" class="nav-link"><i class="far fa-square"></i><span>Price Plan</span></a></li>
-            <li class="{{ setSidebarActive(['admin.plans.*']) }}"><a href="{{ route('admin.plans.index') }}" class="nav-link"><i class="far fa-square"></i><span>Payment Settings</span></a></li>
+            <li class="{{ setSidebarActive(['admin.payment-settings']) }}"><a href="{{ route('admin.payment-settings.index') }}" class="nav-link"><i class="far fa-square"></i><span>Payment Settings</span></a></li>
+            <li class="{{ setSidebarActive(['admin.general-settings']) }}"><a href="{{ route('admin.site-settings.index') }}" class="nav-link"><i class="far fa-square"></i><span>Site Settings</span></a></li>
         </ul>
 
     </aside>

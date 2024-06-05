@@ -438,6 +438,62 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $key
+ * @property string|null $value
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentSetting newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentSetting newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentSetting query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentSetting whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentSetting whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentSetting whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentSetting whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentSetting whereValue($value)
+ */
+	class PaymentSetting extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $label
+ * @property float $price
+ * @property int $job_limit
+ * @property int $featured_job_limit
+ * @property int $highlight_job_limit
+ * @property int $profile_verified
+ * @property int $recommended
+ * @property int $frontend_show
+ * @property int $show_at_home
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereFeaturedJobLimit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereFrontendShow($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereHighlightJobLimit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereJobLimit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereLabel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereProfileVerified($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereRecommended($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereShowAtHome($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereUpdatedAt($value)
+ */
+	class Plan extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property string $slug
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -454,6 +510,27 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Profession withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  */
 	class Profession extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $key
+ * @property string|null $value
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteSetting newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteSetting newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteSetting query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteSetting whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteSetting whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteSetting whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteSetting whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteSetting whereValue($value)
+ */
+	class SiteSetting extends \Eloquent {}
 }
 
 namespace App\Models{
