@@ -26,16 +26,22 @@
                         <div class="col-md-8 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                             <h5 class="">Choose Your Payment Method</h5>
                             <div class="row pt-40">
+                                @if (config('gatewaySettings.paypal_status') == 'active')
+                                    <div class="col-md-3">
+                                        <a href="{{ route('company.paypal.payment') }}"><img class=""
+                                                style="width: 200px;border-radius: 5px;border: 3px solid #1ca774;height:110px;ovject-fit:contain"
+                                                src="{{ asset('default-uploads/paypal.png') }}" alt=""></a>
+                                    </div>
+                                @endif
+
+                                @if (config('gatewaySettings.stripe_status') == 'active')
                                 <div class="col-md-3">
-                                    <a href="{{ route('company.paypal.payment') }}"><img class=""
+                                    <a href="{{ route('company.stripe.payment') }}"><img class=""
                                             style="width: 200px;border-radius: 5px;border: 3px solid #1ca774;height:110px;ovject-fit:contain"
-                                            src="{{ asset('default-uploads/paypal.png') }}" alt=""></a>
+                                            src="{{ asset('default-uploads/stripe.png') }}" alt=""></a>
                                 </div>
-                                <div class="col-md-3">
-                                    <a href=""><img class=""
-                                            style="width: 200px;border-radius: 5px;border: 3px solid #1ca774;"
-                                            src="https://placehold.co/600x400" alt=""></a>
-                                </div>
+                                @endif
+
 
                             </div>
                         </div>

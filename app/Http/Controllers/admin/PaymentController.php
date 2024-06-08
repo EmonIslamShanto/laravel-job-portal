@@ -6,10 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use Stripe\Stripe;
+use Stripe\Checkout\Session as StripeSession;
 
 class PaymentController extends Controller
 {
+
+    function paymentSuccess(): View
+    {
+        return view('front-end.pages.payment-success');
+    }
+
+    function paymentError(): View
+    {
+        return view('front-end.pages.payment-error');
+    }
+
+    // Payment With Paypal
+
 
     function setPapalConfig(): array
     {
@@ -37,6 +53,8 @@ class PaymentController extends Controller
 
     function payWithPaypal()
     {
+        abort_if(!$this->checkSession(), 404, 'Session Id Not Found');
+        
         $config = $this->setPapalConfig();
 
         $provider = new PayPalClient($config);
@@ -60,9 +78,9 @@ class PaymentController extends Controller
             ]
         ]);
 
-        if(isset($response['id']) && $response['id'] !== NULL) {
-            foreach($response['links'] as $link) {
-                if($link['rel'] === 'approve') {
+        if (isset($response['id']) && $response['id'] !== NULL) {
+            foreach ($response['links'] as $link) {
+                if ($link['rel'] === 'approve') {
                     return redirect()->away($link['href']);
                 }
             }
@@ -71,6 +89,8 @@ class PaymentController extends Controller
 
     function paypalSuccess(Request $request)
     {
+        abort_if(!$this->checkSession(), 404, 'Session Id Not Found');
+
         $config = $this->setPapalConfig();
 
         $provider = new PayPalClient($config);
@@ -78,25 +98,100 @@ class PaymentController extends Controller
 
         $response = $provider->capturePaymentOrder($request->token);
 
-        if(isset($response['status']) && $response['status'] === 'COMPLETED') {
+        if (isset($response['status']) && $response['status'] === 'COMPLETED') {
 
             $capture = $response['purchase_units'][0]['payments']['captures'][0];
 
-            try{
+            try {
                 OrderService::storeOrder($capture['id'], 'paypal', $capture['amount']['value'], $capture['amount']['currency_code'], 'paid');
 
                 OrderService::setUserPlan();
-                
-            } catch(\Exception $e) {
-                throw $e;
-            }
-            Session::forget('selected_plan');
+                Session::forget('selected_plan');
 
-            return redirect()->route('home');
+                return redirect()->route('company.payment.success');
+            } catch (\Exception $e) {
+                logger('Payment Error >> ' . $e);
+            }
         }
+
+        $response = $provider->capturePaymentOrder($request->token);
+        return redirect()->route('company.payment.error')->withErrors(['error' => $response['error']['message']]);
     }
 
     function paypalCancel()
     {
+        return redirect()->route('company.payment.error')->withErrors(['error' => 'Something went wrong. Please try again.']);
+    }
+
+
+    // Payment With Stripe
+    function payWithStripe()
+    {
+        abort_if(!$this->checkSession(), 404, 'Session Id Not Found');
+
+        Stripe::setApiKey(config('gatewaySettings.stripe_secret_key'));
+
+        $payableAmount = round(Session::get('selected_plan')['price'] * config('gatewaySettings.stripe_currency_rate')) * 100;
+
+        $response = StripeSession::create([
+
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => config('gatewaySettings.stripe_currency_name'),
+                        'product_data' => [
+                            'name' => Session::get('selected_plan')['label'] . 'package',
+                        ],
+                        'unit_amount' => $payableAmount,
+                    ],
+                    'quantity' => 1,
+                ],
+            ],
+            'mode' => 'payment',
+            'success_url' => route('company.stripe.success') . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('company.stripe.cancel'),
+        ]);
+
+        return redirect()->away($response->url);
+    }
+
+
+    function stripeSuccess(Request $request)
+    {
+        abort_if(!$this->checkSession(), 404, 'Session Id Not Found');
+
+        Stripe::setApiKey(config('gatewaySettings.stripe_secret_key'));
+
+        $sessionId = $request->session_id;
+        $response = StripeSession::retrieve($sessionId);
+
+        if($response->payment_status === 'paid') {
+            try {
+                OrderService::storeOrder($response->payment_intent, 'stripe', ($response->amount_total / 100), $response->currency, 'paid');
+
+                OrderService::setUserPlan();
+                Session::forget('selected_plan');
+
+                return redirect()->route('company.payment.success');
+            } catch (\Exception $e) {
+                logger('Payment Error >> ' . $e);
+            }
+        }else{
+            return redirect()->route('company.payment.error')->withErrors(['error' => 'Something went wrong. Please try again.']);
+        }
+    }
+
+    function stripeCancel()
+    {
+        return redirect()->route('company.payment.error')->withErrors(['error' => 'Something went wrong. Please try again.']);
+    }
+
+
+    //Check Session For Selected Plan
+    function checkSession(): bool{
+        if(session()->has('selected_plan')){
+            return true;
+        }
+        return false;
     }
 }

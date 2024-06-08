@@ -13,8 +13,8 @@
                         <label for="name">Paypal Status</label>
                         <select name="paypal_status" class="form-control {{ hasError($errors, 'paypal_status') }}"
                             id="">
-                            <option @selected(config('gatewaySettings.paypal_status' === 'active')) value="active">Active</option>
-                            <option @selected(config('gatewaySettings.paypal_status' === 'inactive')) value="inactive">Inactive</option>
+                            <option @selected(config('gatewaySettings.paypal_status') === 'active') value="active">Active</option>
+                            <option @selected(config('gatewaySettings.paypal_status') === 'inactive') value="inactive">Inactive</option>
                         </select>
                         <x-input-error :messages="$errors->get('paypal_status')" class="mt-2" />
                     </div>
@@ -24,8 +24,8 @@
                         <label for="name">Paypal Account Mode</label>
                         <select name="paypal_account_mode"
                             class="form-control {{ hasError($errors, 'paypal_account_mode') }}" id="">
-                            <option @selected(config('gatewaySettings.paypal_account_mode' === 'sandbox')) value="sandbox">Sandbox</option>
-                            <option @selected(config('gatewaySettings.paypal_account_mode' === 'live')) value="live">Live</option>
+                            <option @selected(config('gatewaySettings.paypal_account_mode') === 'sandbox') value="sandbox">Sandbox</option>
+                            <option @selected(config('gatewaySettings.paypal_account_mode') === 'live') value="live">Live</option>
                         </select>
                         <x-input-error :messages="$errors->get('paypal_account_mode')" class="mt-2" />
                     </div>
