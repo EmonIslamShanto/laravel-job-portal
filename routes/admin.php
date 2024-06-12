@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IndustryTypeController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LocationController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrganizationTypeController;
 use App\Http\Controllers\Admin\PaymentSettingController;
 use App\Http\Controllers\Admin\PlanController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Admin\ProfessionController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\SkilController;
 use App\Http\Controllers\Admin\StateController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'],function () {
@@ -71,6 +73,12 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     Route::resource('skills', SkilController::class);
 
     Route::resource('plans', PlanController::class);
+
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+
+    Route::get('order/{id}', [OrderController::class, 'show'])->name('orders.show');
+
+    Route::get('order/invoice/{id}', [OrderController::class, 'invoice'])->name('orders.invoice');
 
     Route::get('payment-settings', [PaymentSettingController::class, 'index'])->name('payment-settings.index');
 

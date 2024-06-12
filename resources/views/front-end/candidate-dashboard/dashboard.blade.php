@@ -56,7 +56,7 @@
                                                 <h4>Warning: Your profile is not complete</h4>
                                                 <p>Please complete your profile to use our features</p>
                                             </div>
-                                            <a href="{{ route('candidate.profile') }}" class="btn btn-default rounded-1">Edit Profile</a>
+                                            <a href="{{ route('candidate.profile.index') }}" class="btn btn-default rounded-1">Edit Profile</a>
                                         </div>
                                     </div>
                                 </div>

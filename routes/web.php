@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\CompanyDashboardController;
 use App\Http\Controllers\Frontend\CompanyListPageController;
 use App\Http\Controllers\Frontend\CompanyProfileController;
 use App\Http\Controllers\Frontend\LocationController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PricingPageController;
 use App\Http\Controllers\ProfileController;
 use Faker\Provider\ar_EG\Company;
@@ -72,6 +73,11 @@ route:: group (
     Route::post('/profile/account-info', [CompanyProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
     // Account Password Update
     Route::post('/profile/update-password', [CompanyProfileController::class, 'updatePassword'])->name('profile.update-password');
+    //Order Controller
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('order/{id}', [OrderController::class, 'show'])->name('orders.show');
+    Route::get('order/invoice/{id}', [OrderController::class, 'invoice'])->name('orders.invoice');
+
     //Payment Controller
     Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.payment');
     Route::get('paypal/success', [PaymentController::class, 'paypalSuccess'])->name('paypal.success');
