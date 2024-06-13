@@ -20,7 +20,7 @@
     <link href="{{ asset('Frontend/assets/css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker3.min.css">
-    <title>joblist - Job Portal HTML Template </title>
+    <title>Job Chai</title>
 
 </head>
 

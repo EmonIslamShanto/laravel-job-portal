@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Skill;
+use App\Models\JobCategory;
 use App\Services\Notify;
 use App\Traits\Searchable;
+use Illuminate\Contracts\Queue\Job;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
-class SkilController extends Controller
+class JobCategoryController extends Controller
 {
     use Searchable;
     /**
@@ -19,12 +20,12 @@ class SkilController extends Controller
      */
     public function index(): View
     {
-        $query = Skill::query();
+        $query = JobCategory::query();
 
         $this->search($query, ['name']);
 
-        $skills = $query->paginate(10);
-        return view('admin.skill.index', compact('skills'));
+        $categories = $query->paginate(10);
+        return view('admin.job.job-category.index', compact('categories'));
     }
 
     /**
@@ -32,7 +33,7 @@ class SkilController extends Controller
      */
     public function create(): View
     {
-        return view('admin.skill.create');
+        return view('admin.job.job-category.create');
     }
     /**
      * Store a newly created resource in storage.
@@ -40,18 +41,19 @@ class SkilController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'max:255', 'unique:skills,name'],
+            'icon' => ['required', 'max:255'],
+            'name' => ['required', 'max:255'],
         ]);
 
-        $data = new Skill();
-        $data->name = $request->name;
-        $data->save();
+        $category = new JobCategory();
+        $category->icon = $request->icon;
+        $category->name = $request->name;
+        $category->save();
 
         Notify::createdNotification();
 
-        return to_route('admin.skills.index');
+        return redirect()->route('admin.job-categories.index');
     }
-
 
     /**
      * Display the specified resource.
@@ -66,8 +68,8 @@ class SkilController extends Controller
      */
     public function edit(string $id): View
     {
-        $skill = Skill::findOrFail($id);
-        return view('admin.skill.edit', compact('skill'));
+        $category = JobCategory::findOrFail($id);
+        return view('admin.job.job-category.edit', compact('category'));
     }
 
     /**
@@ -76,16 +78,18 @@ class SkilController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'max:255', 'unique:skills,name,' . $id],
+            'icon' => ['nullable', 'max:255'],
+            'name' => ['required', 'max:255'],
         ]);
 
-        $data = Skill::findOrFail($id);
-        $data->name = $request->name;
-        $data->save();
+        $category = JobCategory::findOrFail($id);
+        if($request->filled('icon')) $category->icon = $request->icon;
+        $category->name = $request->name;
+        $category->save();
 
         Notify::updatedNotification();
 
-        return to_route('admin.skills.index');
+        return redirect()->route('admin.job-categories.index');
     }
 
     /**
@@ -94,7 +98,7 @@ class SkilController extends Controller
     public function destroy(string $id): Response
     {
         try {
-            Skill::findOrFail($id)->delete();
+            JobCategory::findOrFail($id)->delete();
 
             Notify::deletedNotification();
             return response(['massage' => 'success'], 200);

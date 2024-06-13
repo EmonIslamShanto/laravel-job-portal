@@ -115,7 +115,6 @@ class CityController extends Controller
             return response(['massage' => 'success'], 200);
 
         } catch (\Exception $e) {
-            // Notify::errorNotification();
             logger($e);
             return response(['massage' => 'Something went wrong! Please, try again.'], 500);
         }

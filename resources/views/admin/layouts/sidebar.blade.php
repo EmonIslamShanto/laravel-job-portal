@@ -90,7 +90,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">Stisla</a>
+            <a href="index.html">Job Chai</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">St</a>
@@ -125,6 +125,7 @@
             <li class="{{ setSidebarActive(['admin.payment-settings.*']) }}"><a href="{{ route('admin.payment-settings.index') }}" class="nav-link"><i class="far fa-square"></i><span>Payment Settings</span></a></li>
             <li class="{{ setSidebarActive(['admin.site-settings.*']) }}"><a href="{{ route('admin.site-settings.index') }}" class="nav-link"><i class="far fa-square"></i><span>Site Settings</span></a></li>
             <li class="{{ setSidebarActive(['admin.orders.*']) }}"><a href="{{ route('admin.orders.index') }}" class="nav-link"><i class="far fa-square"></i><span>Orders</span></a></li>
+            <li class="{{ setSidebarActive(['admin.job-categories.*']) }}"><a href="{{ route('admin.job-categories.index') }}" class="nav-link"><i class="far fa-square"></i><span>Job Categories</span></a></li>
         </ul>
 
     </aside>
