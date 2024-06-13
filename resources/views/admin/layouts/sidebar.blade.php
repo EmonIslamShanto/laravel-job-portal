@@ -101,7 +101,7 @@
                 <a href="{{ route('admin.dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
             <li class="menu-header">Starter</li>
-            <li class="dropdown {{ setSidebarActive(['admin.industry-type.*', 'admin.organization-type.*', 'admin.languages.*', 'admin.professions.*', 'admin.skills.*']) }}">
+            <li class="dropdown {{ setSidebarActive(['admin.industry-type.*', 'admin.organization-type.*', 'admin.languages.*', 'admin.professions.*', 'admin.skills.*', 'admin.educations.*']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Attributes</span></a>
                 <ul class="dropdown-menu">
@@ -110,6 +110,8 @@
                     <li class="{{ setSidebarActive([ 'admin.languages.*']) }}"><a class="nav-link" href="{{ route('admin.languages.index') }}">Languages</a></li>
                     <li class="{{ setSidebarActive([ 'admin.professions.*']) }}"><a class="nav-link" href="{{ route('admin.professions.index') }}">Professions</a></li>
                     <li class="{{ setSidebarActive([ 'admin.skills.*']) }}"><a class="nav-link" href="{{ route('admin.skills.index') }}">Skills</a></li>
+                    <li class="{{ setSidebarActive(['admin.educations.*']) }}"><a href="{{ route('admin.educations.index') }}" class="nav-link"><span>Educations</span></a></li>
+
                 </ul>
             </li>
             <li class="dropdown {{ setSidebarActive(['admin.countries.*', 'admin.states.*', 'admin.cities.*']) }}">
@@ -126,6 +128,8 @@
             <li class="{{ setSidebarActive(['admin.site-settings.*']) }}"><a href="{{ route('admin.site-settings.index') }}" class="nav-link"><i class="far fa-square"></i><span>Site Settings</span></a></li>
             <li class="{{ setSidebarActive(['admin.orders.*']) }}"><a href="{{ route('admin.orders.index') }}" class="nav-link"><i class="far fa-square"></i><span>Orders</span></a></li>
             <li class="{{ setSidebarActive(['admin.job-categories.*']) }}"><a href="{{ route('admin.job-categories.index') }}" class="nav-link"><i class="far fa-square"></i><span>Job Categories</span></a></li>
+            <li class="{{ setSidebarActive(['admin.job-types.*']) }}"><a href="{{ route('admin.job-types.index') }}" class="nav-link"><i class="far fa-square"></i><span>Job Types</span></a></li>
+            <li class="{{ setSidebarActive(['admin.salary-types.*']) }}"><a href="{{ route('admin.salary-types.index') }}" class="nav-link"><i class="far fa-square"></i><span>Salary Types</span></a></li>
         </ul>
 
     </aside>
