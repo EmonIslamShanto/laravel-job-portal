@@ -123,13 +123,22 @@
                     <li class="{{ setSidebarActive(['admin.cities.*']) }}"><a class="nav-link" href="{{ route('admin.cities.index') }}">Cities</a></li>
                 </ul>
             </li>
+            <li class="dropdown {{ setSidebarActive(['admin.job-categories.*', 'admin.job-types.*', 'admin.salary-types.*', 'admin.tags.*', 'admin.job-roles.*', 'admin.job-experiences.*']) }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Job Attributes</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ setSidebarActive(['admin.job-categories.*']) }}"><a href="{{ route('admin.job-categories.index') }}" class="nav-link"><i class="far fa-square"></i><span>Job Categories</span></a></li>
+                    <li class="{{ setSidebarActive(['admin.job-types.*']) }}"><a href="{{ route('admin.job-types.index') }}" class="nav-link"><i class="far fa-square"></i><span>Job Types</span></a></li>
+                    <li class="{{ setSidebarActive(['admin.job-roles.*']) }}"><a href="{{ route('admin.job-roles.index') }}" class="nav-link"><i class="far fa-square"></i><span>Job Roles</span></a></li>
+                    <li class="{{ setSidebarActive(['admin.job-experiences.*']) }}"><a href="{{ route('admin.job-experiences.index') }}" class="nav-link"><i class="far fa-square"></i><span>Job Experiences</span></a></li>
+                    <li class="{{ setSidebarActive(['admin.salary-types.*']) }}"><a href="{{ route('admin.salary-types.index') }}" class="nav-link"><i class="far fa-square"></i><span>Salary Types</span></a></li>
+                    <li class="{{ setSidebarActive(['admin.tags.*']) }}"><a href="{{ route('admin.tags.index') }}" class="nav-link"><i class="far fa-square"></i><span>Tags</span></a></li>
+                </ul>
+            </li>
             <li class="{{ setSidebarActive(['admin.plans.*']) }}"><a href="{{ route('admin.plans.index') }}" class="nav-link"><i class="far fa-square"></i><span>Price Plan</span></a></li>
             <li class="{{ setSidebarActive(['admin.payment-settings.*']) }}"><a href="{{ route('admin.payment-settings.index') }}" class="nav-link"><i class="far fa-square"></i><span>Payment Settings</span></a></li>
             <li class="{{ setSidebarActive(['admin.site-settings.*']) }}"><a href="{{ route('admin.site-settings.index') }}" class="nav-link"><i class="far fa-square"></i><span>Site Settings</span></a></li>
             <li class="{{ setSidebarActive(['admin.orders.*']) }}"><a href="{{ route('admin.orders.index') }}" class="nav-link"><i class="far fa-square"></i><span>Orders</span></a></li>
-            <li class="{{ setSidebarActive(['admin.job-categories.*']) }}"><a href="{{ route('admin.job-categories.index') }}" class="nav-link"><i class="far fa-square"></i><span>Job Categories</span></a></li>
-            <li class="{{ setSidebarActive(['admin.job-types.*']) }}"><a href="{{ route('admin.job-types.index') }}" class="nav-link"><i class="far fa-square"></i><span>Job Types</span></a></li>
-            <li class="{{ setSidebarActive(['admin.salary-types.*']) }}"><a href="{{ route('admin.salary-types.index') }}" class="nav-link"><i class="far fa-square"></i><span>Salary Types</span></a></li>
         </ul>
 
     </aside>

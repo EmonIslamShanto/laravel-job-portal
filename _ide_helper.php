@@ -18892,10 +18892,10 @@ namespace Spatie\LaravelIgnition\Facades {
          * 
          *
          * @static 
-         */        public static function withStackFrameArguments($withStackFrameArguments = true)
+         */        public static function withStackFrameArguments($withStackFrameArguments = true, $forcePHPIniSetting = false)
         {
                         /** @var \Spatie\FlareClient\Flare $instance */
-                        return $instance->withStackFrameArguments($withStackFrameArguments);
+                        return $instance->withStackFrameArguments($withStackFrameArguments, $forcePHPIniSetting);
         }
                     /**
          * 
