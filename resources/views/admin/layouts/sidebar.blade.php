@@ -101,6 +101,7 @@
                 <a href="{{ route('admin.dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
             <li class="menu-header">Starter</li>
+            <li class="{{ setSidebarActive(['admin.jobs.*']) }}"><a href="{{ route('admin.jobs.index') }}" class="nav-link"><i class="far fa-square"></i><span>Job Post</span></a></li>
             <li class="dropdown {{ setSidebarActive(['admin.industry-type.*', 'admin.organization-type.*', 'admin.languages.*', 'admin.professions.*', 'admin.skills.*', 'admin.educations.*']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Attributes</span></a>
@@ -139,6 +140,7 @@
             <li class="{{ setSidebarActive(['admin.payment-settings.*']) }}"><a href="{{ route('admin.payment-settings.index') }}" class="nav-link"><i class="far fa-square"></i><span>Payment Settings</span></a></li>
             <li class="{{ setSidebarActive(['admin.site-settings.*']) }}"><a href="{{ route('admin.site-settings.index') }}" class="nav-link"><i class="far fa-square"></i><span>Site Settings</span></a></li>
             <li class="{{ setSidebarActive(['admin.orders.*']) }}"><a href="{{ route('admin.orders.index') }}" class="nav-link"><i class="far fa-square"></i><span>Orders</span></a></li>
+            <li class="{{ setSidebarActive(['admin.jobs.*']) }}"><a href="{{ route('admin.jobs.index') }}" class="nav-link"><i class="far fa-square"></i><span>Job Post</span></a></li>
         </ul>
 
     </aside>
