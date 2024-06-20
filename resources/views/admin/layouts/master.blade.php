@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Admin Dashboard &mdash; Stisla</title>
+    <title>Admin Dashboard &mdash; Job Chai</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('admin/assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -74,7 +74,7 @@
         ClassicEditor
             .create(document.querySelector('#editor'))
             .catch(error => {console.error(error);});
-            
+
         $(".delete-item").on('click', function(e) {
             e.preventDefault();
             swal({
