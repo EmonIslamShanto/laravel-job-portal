@@ -18,8 +18,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <link href="{{ asset('Frontend/assets/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('Frontend/assets/css/style.css') }}" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" href="{{ asset('admin/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+
     <title>Job Chai</title>
 
 </head>
@@ -90,6 +91,8 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('admin/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+
 
     <script src="{{ asset('Frontend/assets/js/main.js?v=4.1') }}"></script>
 
@@ -123,6 +126,47 @@
             function hideLoader(){
                 $('.preloader_demo').addClass('d-none');
             }
+
+            $('body').on('click', '.delete-item', function(e) {
+                e.preventDefault();
+                let url = $(this).attr('href');
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                            method: 'DELETE',
+                            url: url,
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            beforeSend: function() {
+                                showLoader();
+                            },
+                            success: function(response) {
+                                window.location.reload();
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(error);
+                                swal(xhr.responseJSON.massage, {
+                                    icon: 'error',
+                                })
+                                hideLoader();
+                            }
+                        });
+                    } else {
+                        swal('Your data is safe!');
+                    }
+                });
+            });
     </script>
 </body>
 

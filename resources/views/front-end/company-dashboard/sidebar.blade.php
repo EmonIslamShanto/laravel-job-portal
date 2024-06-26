@@ -2,8 +2,9 @@
     <div class="box-nav-tabs nav-tavs-profile mb-5">
         <ul class="nav" role="tablist">
             <li><a class="btn btn-border mb-20 {{ setSidebarActive(['company.dashboard.*']) }}" href="{{ route('company.dashboard') }}">Dashboard</a></li>
-            <li><a class="btn btn-border mb-20 {{ setSidebarActive(['company.profile.*']) }}" href="{{ route('company.profile') }}">My Profile</a></li>
+            <li><a class="btn btn-border mb-20 {{ setSidebarActive(['company.profile']) }}" href="{{ route('company.profile') }}">My Profile</a></li>
             <li><a class="btn btn-border mb-20 {{ setSidebarActive(['company.orders.*']) }}" href="{{ route('company.orders.index') }}">Orders</a></li>
+            <li><a class="btn btn-border mb-20 {{ setSidebarActive(['company.jobs.*']) }}" href="{{ route('company.jobs.index') }}">Jobs</a></li>
             <li><a class="btn btn-border mb-20" href="candidate-profile-save-jobs.html">Saved Jobs</a></li>
             <li>
                 <form action="{{ route('logout') }}" method="POST">

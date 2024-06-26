@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\CheckoutPageController;
 use App\Http\Controllers\Frontend\CompanyDashboardController;
 use App\Http\Controllers\Frontend\CompanyListPageController;
 use App\Http\Controllers\Frontend\CompanyProfileController;
+use App\Http\Controllers\Frontend\JobController;
 use App\Http\Controllers\Frontend\LocationController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PricingPageController;
@@ -77,6 +78,9 @@ route:: group (
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('order/{id}', [OrderController::class, 'show'])->name('orders.show');
     Route::get('order/invoice/{id}', [OrderController::class, 'invoice'])->name('orders.invoice');
+
+    //Job Controller
+    Route::resource('jobs', JobController::class);
 
     //Payment Controller
     Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.payment');
