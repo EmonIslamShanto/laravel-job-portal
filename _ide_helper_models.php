@@ -311,6 +311,7 @@ namespace App\Models{
  * @property-read \App\Models\OrganizationType|null $organizationType
  * @property-read \App\Models\State|null $stateName
  * @property-read \App\Models\TeamSize|null $teamSize
+ * @property-read \App\Models\UserPlan|null $userPlan
  * @method static \Illuminate\Database\Eloquent\Builder|Company findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|Company newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Company newQuery()
@@ -468,14 +469,22 @@ namespace App\Models{
  * @property string|null $company_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\JobBenefits> $benefits
+ * @property-read int|null $benefits_count
  * @property-read \App\Models\JobCategory $category
  * @property-read \App\Models\Company $company
  * @property-read \App\Models\JobRole|null $jobRole
  * @property-read \App\Models\JobType|null $jobType
  * @property-read \App\Models\SalaryType|null $salaryType
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\JobSkills> $skills
+ * @property-read int|null $skills_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\JobTag> $tags
+ * @property-read int|null $tags_count
  * @method static \Illuminate\Database\Eloquent\Builder|Job findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|Job newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Job newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Job onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Job query()
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereApplyEmail($value)
@@ -488,6 +497,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereCustomSalary($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereDeadline($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Job whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereEducationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereFeatured($value)
@@ -510,7 +520,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereTotalViews($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Job whereVacancies($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Job withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Job withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
+ * @method static \Illuminate\Database\Eloquent\Builder|Job withoutTrashed()
  */
 	class Job extends \Eloquent {}
 }
@@ -524,6 +536,7 @@ namespace App\Models{
  * @property int $benefit_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Benefits|null $benefit
  * @method static \Illuminate\Database\Eloquent\Builder|JobBenefits newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|JobBenefits newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|JobBenefits query()
@@ -637,6 +650,7 @@ namespace App\Models{
  * @property int $tag_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Tag|null $tag
  * @method static \Illuminate\Database\Eloquent\Builder|JobTag newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|JobTag newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|JobTag query()

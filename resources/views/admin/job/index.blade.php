@@ -35,6 +35,7 @@
                                         <th>Salary</th>
                                         <th>Deadline</th>
                                         <th>Status</th>
+                                        <th>Aproved</th>
                                         <th style="width: 15%">Action</th>
                                     </tr>
                                     @forelse ($jobs as $job)
@@ -71,11 +72,21 @@
                                             </td>
                                             <td>{{ formatDate($job->deadline) }}</td>
                                             <td>
-                                                @if ($job->deadline > date('Y-m-d'))
+                                                @if ($job->status === 'pending')
+                                                    <span class="badge badge-warning">Pending</span>
+                                                @elseif ($job->deadline > date('Y-m-d'))
                                                     <span class="badge badge-primary">Active</span>
                                                 @else
                                                     <span class="badge badge-danger">Expired</span>
                                                 @endif
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <label class="custom-switch mt-4">
+                                                        <input @checked($job->status === 'active') type="checkbox" data-id="{{ $job->id }}" name="custom-switch-checkbox" class="custom-switch-input post_status">
+                                                        <span class="custom-switch-indicator"></span>
+                                                    </label>
+                                                </div>
                                             </td>
                                             <td>
                                                 <a href="{{ route('admin.jobs.edit', $job->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i>
@@ -105,3 +116,27 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.post_status').change(function() {
+                let id = $(this).data('id');
+
+                $.ajax({
+                    method: 'POST',
+                    url: '{{ route("admin.job_status.update", ":id") }}'.replace(":id", id),
+                    data: {_token: "{{ csrf_token() }}"},
+                    success: function(response) {
+                        if(response.message == 'success') {
+                            window.location.reload();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                    }
+                });
+            });
+        });
+
+    </script>
+@endpush

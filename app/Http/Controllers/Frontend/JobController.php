@@ -27,6 +27,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Mockery\Matcher\Not;
 
 class JobController extends Controller
 {
@@ -36,19 +37,29 @@ class JobController extends Controller
      */
     public function index(): View
     {
+        storePlanInformation();
+
         $query = Job::query();
 
         $this->search($query, ['title', 'slug']);
 
-        $jobs = $query->orderBy('id', 'DESC')->paginate(10);
+        $jobs = $query->where('company_id', auth()->user()->company->id)->orderBy('id', 'DESC')->paginate(10);
+
         return view('front-end.company-dashboard.job.index', compact('jobs'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(): View|RedirectResponse
     {
+        storePlanInformation();
+        $userPlan = session('user_plan');
+        if ($userPlan->job_limit < 1) {
+            Notify::errorNotification('You have reached your job limit. Please upgrade your plan to post more jobs.');
+            return to_route('company.jobs.index');
+        }
+
         $companies = Company::where(['profile_completion' => 1, 'visibility' => 1])->get();
         $categories = JobCategory::all();
         $countries = Country::all();
@@ -67,6 +78,9 @@ class JobController extends Controller
      */
     public function store(JobCreateRequest $request): RedirectResponse
     {
+
+
+
         $job = new Job();
         $job->title = $request->title;
         $job->company_id = auth()->user()->company->id;
@@ -95,10 +109,24 @@ class JobController extends Controller
 
         $job->apply_on = $request->receive_application;
 
-        $job->featured = $request->featured;
-        $job->highlight = $request->highlight;
+        $job->featured = $request->has('featured') ? $request->input('featured') : 0;
+        $job->highlight = $request->has('highlight') ? $request->input('highlight') : 0;
 
         $job->description = $request->description;
+
+        if ($request->featured == 1) {
+            if (session('user_plan')->featured_job_limit < 1) {
+                Notify::errorNotification('You have reached your featured job limit. Please upgrade your plan to post more featured jobs.');
+                return redirect()->back();
+            }
+        }
+
+        if ($request->highlight == 1) {
+            if (session('user_plan')->highlight_job_limit < 1) {
+                Notify::errorNotification('You have reached your highlight job limit. Please upgrade your plan to post more highlight jobs.');
+                return redirect()->back();
+            }
+        }
 
         $job->save();
 
@@ -133,6 +161,19 @@ class JobController extends Controller
             $jobSkill->save();
         }
 
+        if ($job) {
+            $userPlan = auth()->user()->company->userPlan;
+            $userPlan->job_limit = $userPlan->job_limit - 1;
+            if ($job->featured == 1) {
+                $userPlan->featured_job_limit = $userPlan->featured_job_limit - 1;
+            }
+            if ($job->highlight == 1) {
+                $userPlan->highlight_job_limit = $userPlan->highlight_job_limit - 1;
+            }
+            $userPlan->save();
+            storePlanInformation();
+        }
+
         Notify::createdNotification();
 
         return to_route('company.jobs.index');
@@ -149,9 +190,10 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id) : View
+    public function edit(string $id): View
     {
         $job = Job::findOrFail($id);
+        abort_if($job->company_id !== auth()->user()->company->id, 403);
         $companies = Company::where(['profile_completion' => 1, 'visibility' => 1])->get();
         $categories = JobCategory::all();
         $countries = Country::all();
@@ -199,8 +241,8 @@ class JobController extends Controller
 
         $job->apply_on = $request->receive_application;
 
-        $job->featured = $request->featured;
-        $job->highlight = $request->highlight;
+        $job->featured = $request->has('featured') ? $request->input('featured') : 0;
+        $job->highlight = $request->has('highlight') ? $request->input('highlight') : 0;
 
         $job->description = $request->description;
 
@@ -217,8 +259,7 @@ class JobController extends Controller
 
         //INSERT BENEFITS
         $selectedBenefits = JobBenefits::where('job_id', $id);
-        foreach($selectedBenefits->get() as $selectedBenefit)
-        {
+        foreach ($selectedBenefits->get() as $selectedBenefit) {
             Benefits::find($selectedBenefit->benefit_id)->delete();
         }
         $selectedBenefits->delete();
@@ -266,4 +307,6 @@ class JobController extends Controller
             return response(['massage' => 'Something went wrong! Please, try again.'], 500);
         }
     }
+
+    
 }

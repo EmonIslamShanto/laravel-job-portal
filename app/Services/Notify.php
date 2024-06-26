@@ -25,4 +25,10 @@ class Notify
     {
         return notyf()->addSuccess('Data deleted successfully', 'Success!');
     }
+
+    // NOtification of Error
+    static function errorNotification(string $error)
+    {
+        return notyf()->addError($error, 'Error!');
+    }
 }

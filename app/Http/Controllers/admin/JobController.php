@@ -94,10 +94,10 @@ class JobController extends Controller
 
         $job->apply_on = $request->receive_application;
 
-        $job->featured = $request->featured;
-        $job->highlight = $request->highlight;
-
+        $job->featured = $request->has('featured') ? $request->input('featured') : 0;
+        $job->highlight = $request->has('highlight') ? $request->input('highlight') : 0;
         $job->description = $request->description;
+        $job->status = 'active';
 
         $job->save();
 
@@ -199,8 +199,8 @@ class JobController extends Controller
 
         $job->apply_on = $request->receive_application;
 
-        $job->featured = $request->featured;
-        $job->highlight = $request->highlight;
+        $job->featured = $request->has('featured') ? $request->input('featured') : 0;
+        $job->highlight = $request->has('highlight') ? $request->input('highlight') : 0;
 
         $job->description = $request->description;
 
@@ -266,5 +266,14 @@ class JobController extends Controller
             logger($e);
             return response(['massage' => 'Something went wrong! Please, try again.'], 500);
         }
+    }
+
+    function changeStatus(string $id): Response
+    {
+        $job = Job::findOrFail($id);
+        $job->status = $job->status == 'active' ? 'pending' : 'active';
+        $job->save();
+        Notify::updatedNotification();
+        return response(['message' => 'success'], 200);
     }
 }

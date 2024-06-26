@@ -95,6 +95,8 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
 
     Route::resource('job-experiences', JobExperienceController::class);
 
+    Route::post('job_status/{id}', [JobController::class, 'changeStatus'])->name('job_status.update');
+
     Route::resource('jobs', JobController::class);
 
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');

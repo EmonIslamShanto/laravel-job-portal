@@ -86,11 +86,13 @@
                                             </td>
                                             <td>{{ formatDate($job->deadline) }}</td>
                                             <td>
-                                                @if ($job->deadline > date('Y-m-d'))
-                                                    <span class="badge"
+                                                @if ($job->status === 'pending')
+                                                    <span class="badge text-dark p-2" style="color: white;background-color: yellow;">Pending</span>
+                                                @elseif ($job->deadline > date('Y-m-d'))
+                                                    <span class="badge text-dark p-2"
                                                         style="color: white;background-color: green;">Active</span>
                                                 @else
-                                                    <span class="badge"
+                                                    <span class="badge text-dark p-2"
                                                         style="color: white;background-color: red;">Expired</span>
                                                 @endif
                                             </td>

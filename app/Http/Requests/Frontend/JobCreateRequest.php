@@ -35,6 +35,8 @@ class JobCreateRequest extends FormRequest
             'benefits' => ['required'],
             'skills' => ['required', 'array'],
             'receive_application' => ['required', 'in:app,email,custom_url'],
+            'featured' => ['nullable'],
+            'highlight' => ['nullable'],
             'description' => ['required', 'string'],
         ];
     }
