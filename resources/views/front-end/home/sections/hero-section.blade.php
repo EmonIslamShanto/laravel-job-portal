@@ -6,7 +6,7 @@
             <div class="col-xl-4 col-lg-12 d-none d-xl-block col-md-6">
               <div class="banner-imgs mt-40">
                 <div class="block-1"><img class="img-responsive" alt="joblist"
-                    src="assets/imgs/page/homepage1/banner1.png"></div>
+                    src="{{ asset('Frontend/assets/imgs/page/homepage1/banner1.png') }}"></div>
               </div>
             </div>
             <div class="col-xl-8 col-lg-12">

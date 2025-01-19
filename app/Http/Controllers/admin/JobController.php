@@ -13,6 +13,7 @@ use App\Models\Experience;
 use App\Models\Job;
 use App\Models\JobBenefits;
 use App\Models\JobCategory;
+use App\Models\JobExperience;
 use App\Models\JobRole;
 use App\Models\JobSkills;
 use App\Models\JobTag;

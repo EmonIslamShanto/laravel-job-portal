@@ -73,6 +73,30 @@ if (!function_exists('formatDate')) {
 }
 
 
+// formate Location
+if (!function_exists('formatLocation')) {
+    function formatLocation($country = null, $state = null, $city = null, $address = null): ?string
+    {
+        $location = '';
+        if($address){
+            $location .= $address.', ';
+        }
+        if($city){
+            $location .= $city.', ';
+        }
+        if($state){
+            $location .= $state.', ';
+        }
+        if($country){
+            $location .= $country;
+        }
+
+        return $location;
+    }
+
+}
+
+
 //Store User Plan Session Information
 if(!function_exists('storePlanInformation')){
     function storePlanInformation(){

@@ -64,8 +64,16 @@ class Company extends Model
         return $this->belongsTo(OrganizationType::class, 'organization_type_id', 'id');
     }
 
+    function jobExperience() : BelongsTo{
+        return $this->belongsTo(JobExperience::class, 'job_experience_id', 'id');
+    }
+
     function teamSize() : BelongsTo{
         return $this->belongsTo(TeamSize::class, 'team_size_id', 'id');
+    }
+
+    function salaryType() : BelongsTo{
+        return $this->belongsTo(SalaryType::class, 'salary_type_id', 'id');
     }
 
     function userPlan(): HasOne

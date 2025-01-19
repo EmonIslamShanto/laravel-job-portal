@@ -9773,3 +9773,34 @@ ul.timeline > li:before {
     width: 100%;
     box-shadow: none;
 }
+
+
+.job-skill {
+    background-color: var(--colorPrimary) !important;
+    color: white !important;
+    padding: 7px 10px  7px 10px !important;
+}
+
+
+.featured{
+    background: #1ca774 !important ;
+    color: white !important;
+}
+
+.featured:hover{
+    background: #1ca774 !important ;
+    color: white !important;
+}
+.highlight{
+    background: #f1f1f1 !important;
+    color: white !important;
+}
+
+.highlight:hover{
+    background: #f1f1f1 !important;
+    color: white !important;
+}
+
+.box-map iframe{
+    height: 40vh;
+}

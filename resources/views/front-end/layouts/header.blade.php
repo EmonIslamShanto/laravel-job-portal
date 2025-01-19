@@ -9,7 +9,7 @@
                 <nav class="nav-main-menu">
                     <ul class="main-menu">
                         <li class="has-children"><a class="active" href="{{ route('home') }}">Home</a></li>
-                        <li class="has-children"><a href="jobs-list.html">Find a Job</a></li>
+                        <li class="has-children"><a href="{{ route('findJobs.index') }}">Find a Job</a></li>
                         <li class="has-children"><a href="{{ route('companies.index') }}">Recruiters</a></li>
                         <li class="has-children"><a href="{{ route('candidates.index') }}">Candidates</a></li>
                         <li class="has-children"><a href="{{ route('pricing.index') }}">Pricing Plan</a></li>

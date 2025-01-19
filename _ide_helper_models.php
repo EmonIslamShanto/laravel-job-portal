@@ -308,6 +308,7 @@ namespace App\Models{
  * @property-read \App\Models\City|null $cityName
  * @property-read \App\Models\Country|null $countryName
  * @property-read \App\Models\IndustryType|null $industryType
+ * @property-read \App\Models\JobExperience|null $jobExperience
  * @property-read \App\Models\OrganizationType|null $organizationType
  * @property-read \App\Models\State|null $stateName
  * @property-read \App\Models\TeamSize|null $teamSize
@@ -629,6 +630,7 @@ namespace App\Models{
  * @property int $skill_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Skill|null $skill
  * @method static \Illuminate\Database\Eloquent\Builder|JobSkills newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|JobSkills newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|JobSkills query()
